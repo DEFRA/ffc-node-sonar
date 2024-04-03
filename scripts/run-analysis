@@ -1,0 +1,47 @@
+#!/bin/sh
+echo '## Set variables ##'
+EXCLUSIONS="**/*tests/*,**/*snyk_report.html"
+REPORT_PATH="/home/node/working/project/test-output/coverage.opencover.xml"
+SOURCE="/home/node/working/project"
+
+echo '## Ensure directory clean for analysis ##'
+rm -r /home/node/working/*
+
+echo '## Copy project to working folder ##'
+cp -r /home/node/project /home/node/working
+
+echo '## Navigate to working directory ##'
+cd /home/node/working/project
+
+if [[ "$FIX_COVERAGE_REPORT" = true ]]; then
+  echo '## Fixing coverage report ##'
+  sed -i -e 's|home/node|home/node/working/project|g' $REPORT_PATH
+fi
+
+echo '## Starting SonarCloud analysis ##'
+# check if PR or main build
+if [[ -z "${SONAR_PR_KEY}" ]]; then
+  sonar-scanner \
+  -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+  -Dsonar.organizationKey=${SONAR_ORGANIZATION_KEY} \
+  -Dsonar.host.url=${SONAR_HOST_URL} \
+  -Dsonar.token=${SONAR_TOKEN} \
+  -Dsonar.exclusions=$EXCLUSIONS \
+  -Dsonar.js.opencover.reportsPaths=$REPORT_PATH
+else
+  sonar-scanner \
+  -Dsonar.projectKey${SONAR_PROJECT_KEY} \
+  -Dsonar.organizationKey=${SONAR_ORGANIZATION_KEY} \
+  -Dsonar.host.url=${SONAR_HOST_URL} \
+  -Dsonar.token=${SONAR_TOKEN} \
+  -Dsonar.exclusions=$EXCLUSIONS \
+  -Dsonar.pullrequest.base=${SONAR_PR_BASE} \
+  -Dsonar.pullrequest.branch=${SONAR_PR_BRANCH} \
+  -Dsonar.pullrequest.key=${SONAR_PR_KEY} \
+  -Dsonar.pullrequest.provider=${SONAR_PR_PROVIDER} \
+  -Dsonar.pullrequest.github.repository=${SONAR_PR_REPOSITORY} \
+  -Dsonar.js.opencover.reportsPaths=$REPORT_PATH \
+  -Dsonar.verbose=true
+fi
+
+echo '## Completed SonarCloud analysis ##'

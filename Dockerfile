@@ -6,9 +6,6 @@ FROM defradigital/node-development:${PARENT_VERSION} AS development
 USER root
 RUN apk --no-cache add openjdk17 --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
 
-# Install Node.js (needed for scanning JavaScript)
-RUN apk --no-cache add nodejs npm
-
 # Install Sonar Scanner
 RUN npm install -g sonar-scanner
 

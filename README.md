@@ -36,7 +36,7 @@ defradigital/ffc-node-sonar
 ```
 
 ### Code coverage
-By default, the image will assume that there is an existing `coverage.opencover.xml` file in the working directory, `./test-output`.  The image will use this file to report coverage to SonarCloud.  
+By default, the image will assume that there is an existing `lcov.info` file in the working directory, `./test-output`.  The image will use this file to report coverage to SonarCloud.  
 
 If it is safe for your service to run tests within the container as part of the analysis, this can be done by passing in the following additional environment variables to the `docker run` commands above.  
 

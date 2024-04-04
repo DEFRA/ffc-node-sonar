@@ -30,7 +30,7 @@ if [[ -z "${SONAR_PR_KEY}" ]]; then
   -Dsonar.js.opencover.reportsPaths=$REPORT_PATH
 else
   sonar-scanner \
-  -Dsonar.projectKey${SONAR_PROJECT_KEY} \
+  -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
   -Dsonar.organization=${SONAR_ORGANIZATION_KEY} \
   -Dsonar.host.url=${SONAR_HOST_URL} \
   -Dsonar.token=${SONAR_TOKEN} \

@@ -14,7 +14,7 @@ To analyse the main branch of a repository run the following command in the work
 
 ```
 docker run \
--v $(pwd)/:/home/dotnet/project \
+-v $(pwd)/:/home/node/project \
 -e SONAR_PROJECT_KEY=MY_PROJECT_KEY \
 -e SONAR_TOKEN=MY_TOKEN \
 defradigital/ffc-node-sonar
@@ -25,7 +25,7 @@ The image supports branch and Pull Request (PR) analysis for GitHub hosted repos
 
 ```
 docker run \
--v $(pwd)/:/home/dotnet/project \
+-v $(pwd)/:/home/node/project \
 -e SONAR_PROJECT_KEY=MY_PROJECT_KEY \
 -e SONAR_TOKEN=MY_TOKEN \
 -e SONAR_PR_BASE=MY_MAIN_BRANCH_NAME \

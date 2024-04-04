@@ -23,7 +23,7 @@ echo '## Starting SonarCloud analysis ##'
 if [[ -z "${SONAR_PR_KEY}" ]]; then
   sonar-scanner \
   -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
-  -Dsonar.organizationKey=${SONAR_ORGANIZATION_KEY} \
+  -Dsonar.organization=${SONAR_ORGANIZATION_KEY} \
   -Dsonar.host.url=${SONAR_HOST_URL} \
   -Dsonar.token=${SONAR_TOKEN} \
   -Dsonar.exclusions=$EXCLUSIONS \
@@ -31,7 +31,7 @@ if [[ -z "${SONAR_PR_KEY}" ]]; then
 else
   sonar-scanner \
   -Dsonar.projectKey${SONAR_PROJECT_KEY} \
-  -Dsonar.organizationKey=${SONAR_ORGANIZATION_KEY} \
+  -Dsonar.organization=${SONAR_ORGANIZATION_KEY} \
   -Dsonar.host.url=${SONAR_HOST_URL} \
   -Dsonar.token=${SONAR_TOKEN} \
   -Dsonar.exclusions=$EXCLUSIONS \
